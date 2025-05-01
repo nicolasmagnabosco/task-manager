@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "@/styles/globals.css";
 import TaskManagerProvider from "@/components/contexts/TaskManagerProvider";
-
-const inter = Inter({ subsets: ["latin"] });
-
+import TaskEditorProvider from "@/components/contexts/TaskEditorProvider";
+const kanit = Kanit({ subsets: ["latin"], weight: ["300", "400"] });
 export const metadata: Metadata = {
   title: "Task Manager",
   description: "Task Manager built in React",
@@ -18,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <TaskManagerProvider>
-        <body className={inter.className}>{children}</body>
+        <TaskEditorProvider>
+          <body suppressHydrationWarning={true} className={kanit.className}>
+            {children}
+          </body>
+        </TaskEditorProvider>
       </TaskManagerProvider>
     </html>
   );

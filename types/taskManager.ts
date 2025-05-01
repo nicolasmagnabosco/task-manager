@@ -1,21 +1,22 @@
+import { ColorType } from "./common";
+
 export interface TaskManagerType {
-  onAddColumn: () => void;
-  onRemoveColumn: (columnIndex: string) => void;
-  onAddTask: (columnIndex: string) => void;
-  onRemoveTask: (columnIndex: string, taskIndex: number) => void;
-  onTaskDone: (columnIndex: string, taskindex: number) => void;
-  onEditColumnColor: (columnIndex: string, value: string) => void;
-  onEditColumnHeading: (columnIndex: string, value: string) => void;
-  onEditTask: (columnIndex: string, taskindex: number, value: TaskType) => void;
+  addTask: (columnId: string) => void;
+  removeColumn: (columnId: string) => void;
+  addColumn: () => void;
+  removeTask: (columnId: string, taskId: string) => void;
+  editColumnColor: (columnId: string, color: ColorType) => void;
+  editColumnHeading: (columnId: string, value: string) => void;
+  updateTask: (columnId: string, taskId: string, value: TaskType) => void;
   columns: Array<ColumnType>;
+  updateCompletion: (columnId: string, taskId: string) => void;
 }
 
 export interface SubtaskType {
   id: string;
   heading: string;
-  state: TaskStateType;
+  isCompleted: boolean;
 }
-export type TaskStateType = "ongoing" | "done";
 
 export interface TaskType {
   id: string;
@@ -23,8 +24,9 @@ export interface TaskType {
   description: string;
   image?: string;
   subtasks: Array<SubtaskType>;
-  state: TaskStateType;
+  isCompleted: boolean;
 }
+
 export interface ColumnType {
   id: string;
   heading: string;
