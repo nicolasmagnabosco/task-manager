@@ -3,7 +3,13 @@ import { taskEditorCtx } from "@/components/contexts/TaskEditorProvider";
 import { TaskEditorCtxType } from "@/types/taskEditor";
 import { MouseEvent, useContext, useRef } from "react";
 
-export default function TaskEditor() {
+export default function TaskEditor({
+  columnId,
+  taskId,
+}: {
+  columnId: string;
+  taskId: string;
+}) {
   const {
     changeHeading,
     changeDescription,
@@ -55,7 +61,7 @@ export default function TaskEditor() {
             Add Subtask
           </button>
         </div>
-        <button className="button" onClick={done}>
+        <button className="button" onClick={() => done()}>
           Done
         </button>
       </dialog>

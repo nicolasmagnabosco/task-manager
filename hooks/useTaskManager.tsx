@@ -82,13 +82,18 @@ export default function useTaskManager(): TaskManagerType {
   //database update on "done"
   const updateTask = (columnId: string, taskId: string, task: TaskType) => {
     setColumns((cols) => {
+      console.log("hey");
       return cols.map((c) => {
+        console.log(c.id === columnId);
         if (c.id === columnId) {
+          console.log("column found");
           return {
             ...c,
             tasks: c.tasks.map((t) => {
-              if (t.id === taskId) return { ...task, id: t.id };
-              else return { ...t };
+              if (t.id === taskId) {
+                console.log("task found");
+                return { ...task, id: t.id };
+              } else return { ...t };
             }),
           };
         } else return { ...c };

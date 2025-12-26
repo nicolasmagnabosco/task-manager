@@ -22,7 +22,7 @@ export default function Task({
     <article className="bg-[color:var(--dark-blue)] rounded relative">
       <button
         className="absolute top-0 right-2 edit-button"
-        onClick={() => open(columnId, task)}
+        onClick={() => open(columnId, task.id, task)}
       >
         <EditIcon
           width={EDIT_ICON.width}
