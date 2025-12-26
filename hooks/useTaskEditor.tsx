@@ -42,6 +42,7 @@ export default function useTaskEditor() {
       return { ...prev, description: text };
     });
   };
+
   return {
     open,
     close,

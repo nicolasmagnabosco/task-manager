@@ -6,6 +6,7 @@ import TrashCanIcon from "@/components/icons/TrashCanIcon";
 import ColorPicker from "./colorPicker/ColorPicker";
 import AddIcon from "@/components/icons/AddIcon";
 import { ADD_ICON, TRASH_ICON } from "@/constants/constants";
+import DeleteBtn from "@/components/main/common/DeleteBtn";
 
 export default function ColumnHeader({ column }: { column: ColumnType }) {
   const { removeColumn, editColumnHeading, addTask } = useContext(
@@ -28,17 +29,7 @@ export default function ColumnHeader({ column }: { column: ColumnType }) {
         />
       </div>
       <div className="flex gap-2 flex-nowrap items-center">
-        <button
-          onClick={() => removeColumn(column.id)}
-          className="button--delete"
-        >
-          <TrashCanIcon
-            className="icon"
-            width={TRASH_ICON.width}
-            height={TRASH_ICON.height}
-            strokeWidth={TRASH_ICON.strokeWidth}
-          />
-        </button>
+        <DeleteBtn onClick={() => removeColumn(column.id)} />
         <button
           className="button--neutral text-xl w-max"
           onClick={() => addTask(column.id)}
