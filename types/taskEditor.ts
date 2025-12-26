@@ -1,4 +1,4 @@
-import { SubtaskType, TaskType } from "./taskManager";
+import { TaskType } from "./taskManager";
 
 export interface TaskEditorCtxType {
   close: () => void;
@@ -7,9 +7,8 @@ export interface TaskEditorCtxType {
   changeHeading: (heading: string) => void;
   changeDescription: (description: string) => void;
   changeImage: (image: string) => void;
-  updateCompletion: (state: boolean) => void;
-  changeSubtasks: (subtasks: Array<SubtaskType>) => void;
+  removeTaskHandler: () => void;
+  changeCompletion: () => void;
   isWindowVisible: boolean;
   currentTask: TaskType;
-  addSubtask: () => void;
 }

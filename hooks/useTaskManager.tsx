@@ -3,11 +3,7 @@
 import { useState } from "react";
 import cloneDeep from "lodash.clonedeep";
 import { ColumnType, TaskManagerType, TaskType } from "@/types/taskManager";
-import {
-  DEFAULT_COLUMN,
-  DEFAULT_SUBTASK,
-  DEFAULT_TASK,
-} from "@/constants/constants";
+import { DEFAULT_COLUMN, DEFAULT_TASK } from "@/constants/constants";
 import { ColorType } from "@/types/common";
 
 export default function useTaskManager(): TaskManagerType {
@@ -30,13 +26,16 @@ export default function useTaskManager(): TaskManagerType {
   };
 
   const addTask = (columnId: string) => {
-    const newTask = { ...DEFAULT_TASK, id: crypto.randomUUID() };
+    const newTask = {
+      ...DEFAULT_TASK,
+      id: crypto.randomUUID(),
+    };
     setColumns((cols) => {
       return cols.map((c) => {
         if (c.id === columnId) {
           return {
             ...c,
-            tasks: [...c.tasks, newTask],
+            tasks: [...c.tasks, { ...newTask, order: c.tasks.length }],
           };
         } else return { ...c };
       });

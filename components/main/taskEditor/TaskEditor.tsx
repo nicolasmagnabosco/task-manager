@@ -1,7 +1,10 @@
 "use client";
 import { taskEditorCtx } from "@/components/contexts/TaskEditorProvider";
 import { TaskEditorCtxType } from "@/types/taskEditor";
-import { MouseEvent, useContext, useRef } from "react";
+import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
+import DeleteBtn from "../common/DeleteBtn";
+import CompletedIcon from "@/components/icons/CompletedIcon";
+import NotCompletedIcon from "@/components/icons/NotCompletedIcon";
 
 export default function TaskEditor({
   columnId,
@@ -14,10 +17,12 @@ export default function TaskEditor({
     changeHeading,
     changeDescription,
     done,
+    changeImage,
     currentTask,
     isWindowVisible,
     close,
-    addSubtask,
+    removeTaskHandler,
+    changeCompletion,
   } = useContext(taskEditorCtx) as TaskEditorCtxType;
 
   const containerRef = useRef(null);
@@ -26,6 +31,10 @@ export default function TaskEditor({
     if (ev.target === containerRef.current) close();
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length !== 0)
+      changeImage(URL.createObjectURL(e.target.files![0]));
+  };
   return (
     <div
       ref={containerRef}
@@ -37,6 +46,28 @@ export default function TaskEditor({
         className="dialog bg-[color:var(--dark-blue)] border-4 border-[color:var(--light-gray)] rounded absolute left-0 top-1/4 flex flex-col items-center p-4"
       >
         <div className="flex flex-col gap-2 pb-4">
+          <div className="flex justify-around">
+            <DeleteBtn onClick={removeTaskHandler} />
+            <button
+              className="completed-icon-container "
+              onClick={changeCompletion}
+            >
+              {currentTask.isCompleted ? (
+                <CompletedIcon
+                  className="completed-icon"
+                  width={50}
+                  height={50}
+                  stroke="black"
+                />
+              ) : (
+                <NotCompletedIcon
+                  className="not-completed-icon"
+                  width={50}
+                  height={50}
+                />
+              )}
+            </button>
+          </div>
           <label className="input-label" htmlFor="heading">
             Name:
           </label>
@@ -52,14 +83,19 @@ export default function TaskEditor({
           </label>
           <input
             className="text-input"
-            onBlur={(ev) => changeDescription(ev.target.value)}
             defaultValue={currentTask.description}
+            onBlur={(ev) => changeDescription(ev.target.value)}
             name="description"
             type="text"
           />
-          <button onClick={() => addSubtask()} className="button">
-            Add Subtask
-          </button>
+          <label htmlFor="image">Imagen:</label>
+          <input
+            className="button"
+            name="image"
+            accept="image/png, image/jpg"
+            type="file"
+            onChange={handleChange}
+          />
         </div>
         <button className="button" onClick={() => done()}>
           Done

@@ -17,7 +17,6 @@ export default function Task({
   columnId: string;
 }) {
   const { open } = useContext(taskEditorCtx) as TaskEditorCtxType;
-  const { removeTask } = useContext(taskManagerCtx) as TaskManagerType;
   return (
     <article className="bg-[color:var(--dark-blue)] rounded relative">
       <button
@@ -32,11 +31,20 @@ export default function Task({
         />
       </button>
       <div className="flex flex-col items-center">
-        <h2>{task.heading}</h2>
-        <p style={{ overflowWrap: "break-word" }} className="max-w-[80%]">
-          {task.description}
-        </p>
-        {task.image && <Image src={task.image} alt="attached img" />}
+        <h2 className={task.isCompleted ? "line-through" : ""}>
+          {task.heading}
+        </h2>
+        {task.isCompleted}
+        <p>{task.description}</p>
+        {task.image && (
+          <Image
+            className={task.isCompleted ? "opacity-50" : ""}
+            src={task.image}
+            width={80}
+            height={80}
+            alt="attached img"
+          />
+        )}
         <ul>
           {task.subtasks &&
             task.subtasks.map((subtask) => (

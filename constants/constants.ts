@@ -1,9 +1,4 @@
-import {
-  ColumnType,
-  SubtaskType,
-  TaskStateType,
-  TaskType,
-} from "@/types/taskManager";
+import { ColumnType, TaskType } from "@/types/taskManager";
 
 export const DEFAULT_COLUMN: ColumnType = {
   id: "", //assigned when created
@@ -18,15 +13,10 @@ export const DEFAULT_TASK: TaskType = {
   id: "", //assigned when created
   heading: "New task",
   description: "",
-  subtasks: [],
-  state: TASK_STATE_ONGOING,
+  isCompleted: false,
+  order: 0, //properly set when created
 };
 
-export const DEFAULT_SUBTASK: SubtaskType = {
-  id: "", //assigned when created
-  heading: "New Subtask",
-  state: TASK_STATE_ONGOING,
-};
 export const COLUMN_COLORS = [
   "#f54d4d",
   "#4d5ef5",

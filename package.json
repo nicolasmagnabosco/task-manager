@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^12.23.26",
     "next": "14.2.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-sortablejs": "^6.1.4",
+    "sortablejs": "^1.15.6"
   },
   "devDependencies": {
     "@types/lodash.clonedeep": "^4.5.9",

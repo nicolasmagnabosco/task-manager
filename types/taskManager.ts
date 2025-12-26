@@ -12,19 +12,13 @@ export interface TaskManagerType {
   updateCompletion: (columnId: string, taskId: string) => void;
 }
 
-export interface SubtaskType {
-  id: string;
-  heading: string;
-  isCompleted: boolean;
-}
-
 export interface TaskType {
   id: string;
   heading: string;
   description: string;
   image?: string;
-  subtasks: Array<SubtaskType>;
   isCompleted: boolean;
+  order: number;
 }
 
 export interface ColumnType {
