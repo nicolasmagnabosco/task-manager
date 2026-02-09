@@ -68,11 +68,11 @@ export default function useTaskManager(): TaskManagerType {
   };
 
   //debouncing
-  const editColumnColor = (columnId: string, color: ColorType) => {
+  const editColumnColor = (columnId: string, colors: ColorType) => {
     setColumns((cols) => {
       return cols.map((c) => {
         if (c.id === columnId) {
-          return { ...c, color: color };
+          return { ...c, colors: colors };
         } else return c;
       });
     });
@@ -81,16 +81,12 @@ export default function useTaskManager(): TaskManagerType {
   //database update on "done"
   const updateTask = (columnId: string, taskId: string, task: TaskType) => {
     setColumns((cols) => {
-      console.log("hey");
       return cols.map((c) => {
-        console.log(c.id === columnId);
         if (c.id === columnId) {
-          console.log("column found");
           return {
             ...c,
             tasks: c.tasks.map((t) => {
               if (t.id === taskId) {
-                console.log("task found");
                 return { ...task, id: t.id };
               } else return { ...t };
             }),
@@ -116,6 +112,21 @@ export default function useTaskManager(): TaskManagerType {
     });
   };
 
+  const reorderTasks = (columnId: string, newOrder: Array<TaskType>) => {
+    setColumns((prev) =>
+      prev.map((c) => {
+        if (c.id === columnId)
+          return {
+            ...c,
+            tasks: newOrder.map((t, index) => {
+              return { ...t, order: index };
+            }),
+          };
+        else return c;
+      }),
+    );
+  };
+
   return {
     addColumn,
     removeColumn,
@@ -126,5 +137,6 @@ export default function useTaskManager(): TaskManagerType {
     updateTask,
     columns,
     updateCompletion,
+    reorderTasks,
   };
 }

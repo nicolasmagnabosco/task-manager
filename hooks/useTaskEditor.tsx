@@ -19,14 +19,12 @@ export default function useTaskEditor() {
     setCurrentTask(task);
     setIsWindowVisible(true);
   };
-
   const close = () => {
     setCurrentTask(DEFAULT_TASK);
     setIsWindowVisible(false);
   };
 
   const done = () => {
-    console.log(currentTask);
     updateTask(currentColId, currentTaskId, currentTask);
     close();
   };
@@ -36,9 +34,9 @@ export default function useTaskEditor() {
       return { ...prev, heading: text };
     });
   };
-  const changeImage = (url: string) => {
+  const changeImage = (file: File, url: string) => {
     setCurrentTask((prev) => {
-      return { ...prev, image: url };
+      return { ...prev, image: { file, url } };
     });
   };
   const changeDescription = (text: string) => {

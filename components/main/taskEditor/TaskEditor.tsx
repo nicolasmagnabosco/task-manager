@@ -1,18 +1,19 @@
 "use client";
 import { taskEditorCtx } from "@/components/contexts/TaskEditorProvider";
 import { TaskEditorCtxType } from "@/types/taskEditor";
-import { ChangeEvent, MouseEvent, useContext, useRef } from "react";
+import {
+  ChangeEvent,
+  DragEvent,
+  MouseEvent,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import DeleteBtn from "../common/DeleteBtn";
-import CompletedIcon from "@/components/icons/CompletedIcon";
-import NotCompletedIcon from "@/components/icons/NotCompletedIcon";
-
-export default function TaskEditor({
-  columnId,
-  taskId,
-}: {
-  columnId: string;
-  taskId: string;
-}) {
+import Image from "next/image";
+import { CompletedTaskIcons } from "@/components/main/common/CompletedTaskIcons";
+import { useEffect } from "react";
+export default function TaskEditor() {
   const {
     changeHeading,
     changeDescription,
@@ -32,9 +33,21 @@ export default function TaskEditor({
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length !== 0)
-      changeImage(URL.createObjectURL(e.target.files![0]));
+    if (e.target.files?.length !== 0) {
+      changeImage(e.target.files![0], URL.createObjectURL(e.target.files![0]));
+    }
   };
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    if (e.dataTransfer.files[0]) {
+      changeImage(
+        e.dataTransfer.files[0],
+        URL.createObjectURL(e.dataTransfer.files[0])
+      );
+    }
+  };
+
+  let checkSound = new Audio("./sounds/check.mp3");
   return (
     <div
       ref={containerRef}
@@ -46,26 +59,18 @@ export default function TaskEditor({
         className="dialog bg-[color:var(--dark-blue)] border-4 border-[color:var(--light-gray)] rounded absolute left-0 top-1/4 flex flex-col items-center p-4"
       >
         <div className="flex flex-col gap-2 pb-4">
-          <div className="flex justify-around">
+          <div className="flex justify-around items-center">
             <DeleteBtn onClick={removeTaskHandler} />
             <button
               className="completed-icon-container "
-              onClick={changeCompletion}
+              onClick={() => {
+                !currentTask.isCompleted && checkSound.play();
+                changeCompletion();
+              }}
             >
-              {currentTask.isCompleted ? (
-                <CompletedIcon
-                  className="completed-icon"
-                  width={50}
-                  height={50}
-                  stroke="black"
-                />
-              ) : (
-                <NotCompletedIcon
-                  className="not-completed-icon"
-                  width={50}
-                  height={50}
-                />
-              )}
+              <div className="w-12 h-12 flex justify-center items-center">
+                <CompletedTaskIcons isCompleted={currentTask.isCompleted} />
+              </div>
             </button>
           </div>
           <label className="input-label" htmlFor="heading">
@@ -88,14 +93,31 @@ export default function TaskEditor({
             name="description"
             type="text"
           />
-          <label htmlFor="image">Imagen:</label>
-          <input
-            className="button"
-            name="image"
-            accept="image/png, image/jpg"
-            type="file"
-            onChange={handleChange}
-          />
+          <label
+            className="input-label"
+            htmlFor="image"
+          >{`Upload an image (select manually or drag and drop)`}</label>
+          <div
+            className="p-5 rounded bg-[var(--light-gray)]"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={handleDrop}
+          >
+            {currentTask.image && (
+              <Image
+                src={currentTask.image.url}
+                width={50}
+                height={50}
+                alt="preview"
+              />
+            )}
+            <input
+              className="button"
+              name="image"
+              accept="image/*"
+              type="file"
+              onChange={handleChange}
+            />
+          </div>
         </div>
         <button className="button" onClick={() => done()}>
           Done

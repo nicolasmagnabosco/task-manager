@@ -6,7 +6,7 @@ export interface TaskEditorCtxType {
   open: (columnId: string, taskId: string, task: TaskType) => void;
   changeHeading: (heading: string) => void;
   changeDescription: (description: string) => void;
-  changeImage: (image: string) => void;
+  changeImage: (file: File, url: string) => void;
   removeTaskHandler: () => void;
   changeCompletion: () => void;
   isWindowVisible: boolean;

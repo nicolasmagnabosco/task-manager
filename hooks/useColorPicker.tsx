@@ -12,8 +12,8 @@ export default function useColorPicker(columnId: string): ColorPickerType {
   const changeColorPickerVisibility = () => {
     setIsColorPickerVisible((prev) => !prev);
   };
-  const selectColor = (color: ColorType) => {
-    editColumnColor(columnId, color);
+  const selectColor = (colors: ColorType) => {
+    editColumnColor(columnId, colors);
     changeColorPickerVisibility();
   };
 

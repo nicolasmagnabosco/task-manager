@@ -9,7 +9,7 @@ import { taskEditorCtx } from "../contexts/TaskEditorProvider";
 export default function Main() {
   const { isWindowVisible } = useContext(taskEditorCtx) as TaskEditorCtxType;
   return (
-    <main>
+    <main className="flex flex-col flex-1 overflow-auto">
       <Columns />
       {isWindowVisible && <TaskEditor />}
     </main>

@@ -13,11 +13,14 @@
   --light-red: #ec8f8f;
   --dark-red: #662222;
   --white: white;
+  --green: #53e953;
   --border-radius: 6px;
 }
 body {
-  color: var(--light-gray);
+  color: var(--white);
   font-weight: 300;
+  color: var(--light-gray);
+  font-size: 1.25rem;
 }
 
 /*Buttons*/
@@ -82,7 +85,7 @@ body {
 .input-label {
   color: #adb0d3;
   font-weight: 300;
-  font-size: small;
+  font-size: smaller;
 }
 .text-input {
   background-color: var(--black);
@@ -106,11 +109,39 @@ body {
   background: var(--light-blue);
   border-radius: 10px;
 }
-/* .not-completed-icon,
-.completed-icon {
-  transform: scale(0.75);
-  transition: all ease-in 2s;
-} */
+
 .completed-icon-container {
   transition: transform 2s ease;
+}
+.completed-icon {
+  stroke: var(--green);
+  width: 40px;
+  height: 40px;
+}
+.not-completed-icon {
+  fill: var(--light-gray);
+  width: 35px;
+  height: 35px;
+}
+.text-overflow {
+  word-break: break-all;
+  width: 16rem;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pop {
+  animation: pop 200ms ease-out;
 }

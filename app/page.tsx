@@ -4,8 +4,10 @@ import Main from "@/components/main/Main";
 export default function Home() {
   return (
     <>
-      <Header />
-      <Main />
+      <div className="bg-black flex flex-col min-h-screen ">
+        <Header />
+        <Main />
+      </div>
     </>
   );
 }

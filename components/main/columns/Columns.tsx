@@ -10,15 +10,25 @@ export default function Columns() {
   const { scrollbar, handleScrollLeft, handleScrollRight } = useScrollbar();
   return (
     <section
-      className="min-h-[89.75vh] bg-[color:var(--dark-blue)] p-5"
+      className="bg-[color:var(--dark-blue)] p-5 flex-1 overflow-auto"
       aria-label="tasks columns"
     >
-      <div className="flex justify-center gap-5">
-        <button className="rotate-180" onClick={handleScrollRight}>
+      <div className="flex justify-center items-center gap-5">
+        <button
+          className="flex items-center justify-center rotate-180"
+          onClick={handleScrollRight}
+        >
           &#x27A4;
         </button>
-        <button onClick={handleScrollLeft}>&#x27A4;</button>
+
+        <button
+          className="flex items-center justify-center"
+          onClick={handleScrollLeft}
+        >
+          &#x27A4;
+        </button>
       </div>
+
       <ul
         ref={scrollbar}
         className="flex gap-2 overflow-x-auto custom-scrollbar scroll-smooth py-2"

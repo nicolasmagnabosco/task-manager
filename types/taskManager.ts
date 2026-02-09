@@ -10,13 +10,14 @@ export interface TaskManagerType {
   updateTask: (columnId: string, taskId: string, value: TaskType) => void;
   columns: Array<ColumnType>;
   updateCompletion: (columnId: string, taskId: string) => void;
+  reorderTasks: (columnId: string, newOrder: Array<TaskType>) => void;
 }
 
 export interface TaskType {
   id: string;
   heading: string;
   description: string;
-  image?: string;
+  image?: { file: File; url: string }; //the url field is client-specific for easy rendering (createUrlObject)
   isCompleted: boolean;
   order: number;
 }
@@ -24,6 +25,6 @@ export interface TaskType {
 export interface ColumnType {
   id: string;
   heading: string;
-  color: string;
+  colors: ColorType;
   tasks: Array<TaskType>;
 }

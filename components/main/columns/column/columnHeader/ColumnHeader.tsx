@@ -18,9 +18,9 @@ export default function ColumnHeader({ column }: { column: ColumnType }) {
   return (
     <header className="flex justify-between relative flex-nowrap">
       <div className="flex items-center gap-1">
-        <ColorPicker columnId={column.id} columnColor={column.color} />
+        <ColorPicker columnId={column.id} columnColors={column.colors} />
         <input
-          className="bg-[color:var(--gray)] rounded w-40 h-6 active:outline-2 focus:bg-[color:var(--dark-blue)]"
+          className="bg-transparent rounded w-40 h-6 active:outline-2 focus:bg-[color:var(--dark-blue)]"
           name="heading"
           type="text"
           value={inputValue}
